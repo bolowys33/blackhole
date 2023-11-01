@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const Favorites = require('./favourite.model')
+const { ReviewModel } = require('./review.model')
 
 const productSchema = new mongoose.Schema(
     {
@@ -20,13 +22,13 @@ const productSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        image: {
+        images: [{
             type: String,
             required: true,
             min: [1,'add more images'],
             max: 5,
             default: 'https://pic.onlinewebfonts.com/thumbnails/icons_90947.svg'
-        },
+        }],
         category_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Category',
@@ -37,7 +39,14 @@ const productSchema = new mongoose.Schema(
             default: 1
         }
     }, {timestamps: true}
-) 
+)
+
+productSchema.pre('findByIdAndDelete', async function (next) {
+    product = this
+    await Favorites.deleteMany({product: product._id})
+    await ReviewModel.deleteMany({product_id: product._id})
+    next()
+})
 
 const ProductModel = mongoose.model('Product', productSchema)
 
