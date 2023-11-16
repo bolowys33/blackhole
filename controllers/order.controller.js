@@ -249,11 +249,13 @@ async function getAllOrdersForVendor(req, res) {
                    continue
                 }
 
-                const newDetails = {product_name: productDetails.name, quantity: product.quantity, order_id}
+                const newDetails = {product_name: productDetails.name, quantity: product.quantity, price: product.price, order_id}
                 vendorOrders.push(newDetails)
             }
         }
-
+        if (vendorOrders.length == 0) {
+            return res.json({success: false, message: `You have no order for your products`})
+        }
         res.json({success: true, message: vendorOrders})
     } catch (error) {
         res.json({success: false, error: error.message})
