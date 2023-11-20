@@ -245,12 +245,12 @@ async function getAllOrdersForVendor(req, res) {
         
         const {id} = req.user
         const orders = await OrderModel.find({completed: true})
+        console.log(`i reach here`);
 
         if (orders.length == 0) {
             return res.json({success: false, message: `No order present`})
         }
 
-        console.log(`i reach here`);
 
         const vendorOrders = []
 
