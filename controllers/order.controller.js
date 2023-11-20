@@ -252,7 +252,6 @@ async function getAllOrdersForVendor(req, res) {
             return res.json({success: false, message: `No order present`})
         }
 
-
         const vendorOrders = []
 
         for (const order of orders) {
