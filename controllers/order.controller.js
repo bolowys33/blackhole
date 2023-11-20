@@ -257,6 +257,7 @@ async function getAllOrdersForVendor(req, res) {
         for (const order of orders) {
             const order_id = order._id
             const date = order.order_date
+            console.log(order);
 
             for (const product of order.products) {
                 const productDetails = await ProductModel.findById(product.product_id)
