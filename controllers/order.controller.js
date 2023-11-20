@@ -242,10 +242,10 @@ async function markDelivered(req, res) {
 
 async function getAllOrdersForVendor(req, res) {
     try {
+        console.log(`i reach here`);
         
         const {id} = req.user
         const orders = await OrderModel.find({completed: true})
-        console.log(`i reach here`);
 
         if (orders.length == 0) {
             return res.json({success: false, message: `No order present`})
