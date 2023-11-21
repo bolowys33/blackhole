@@ -242,9 +242,6 @@ async function markDelivered(req, res) {
 
 async function getAllOrdersForVendor(req, res) {
     try {
-        
-        console.log(`i reach here`);
-        
         const {id} = req.user
         const orders = await OrderModel.find({completed: true})
 
@@ -266,9 +263,7 @@ async function getAllOrdersForVendor(req, res) {
                    continue
                 }
 
-                console.log(product);
-
-                const newDetails = {product_name: productDetails.name, quantity: product.quantity, price: product.price, category: product.category_id, image: product.images[0]}
+                const newDetails = {product_name: productDetails.name, quantity: product.quantity, price: product.price, category_id: productDetails.category_id, image: productDetails.images[0]}
                 productsArr.push(newDetails)
             }
             const orderDetais = {order_id, products: productsArr, date}
