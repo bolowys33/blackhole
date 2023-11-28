@@ -177,7 +177,6 @@ async function getVendorReviews(req, res){
                 continue
             }
             
-            console.log(review);
             const details = {comment: review.comment, rating: review.rating, by: review.user_id.username, product: review.product_id.name, date: review.createdAt}
             
             reviewDetails.push(details)
