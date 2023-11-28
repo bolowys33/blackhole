@@ -164,15 +164,16 @@ async function getVendorReviews(req, res){
     try {
         const {id} = req.user
         const reviews = await ReviewModel.find().populate('user_id product_id');
+        console.log(reviews)
 
         if (reviews.length == 0) {
             res.json({success: false, message: `No review found`})
         }
-
         const reviewDetails = []
-
+        
+        console.log('meeeeeeeeee');
         for (const review of reviews) {
-
+            
             if (review.product_id.user_id != id) {
                 continue
             }
