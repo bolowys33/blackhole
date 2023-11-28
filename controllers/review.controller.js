@@ -178,16 +178,15 @@ async function getVendorReviews(req, res){
             }
             
             console.log(review);
-            return res.send('we dey')
             const details = {comment: review.comment, rating: review.rating, by: review.user_id.username, product: review.product_id.name, date: review.createdAt}
-
+            
             reviewDetails.push(details)
         }
-
+        
         if (reviewDetails.length == 0) {
             res.json({success: false, message: `You have no review for any of your products`})
         }
-
+        
         res.json({success: true, message: reviewDetails})
 
     } catch (error) {
