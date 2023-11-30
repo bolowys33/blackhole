@@ -251,6 +251,7 @@ async function getAllOrdersForVendor(req, res) {
 
         const vendorOrders = []
         for (const order of orders) {
+            const orderDetails = {}
             const order_id = order._id
             const date = order.order_date
             const productsArr = []
@@ -264,12 +265,15 @@ async function getAllOrdersForVendor(req, res) {
                 
                 const newDetails = {product_name: productDetails.name, quantity: product.quantity, price: product.price, category_id: productDetails.category_id, image: productDetails.images[0]}
                 productsArr.push(newDetails)
-                const orderDetails = {}
                 orderDetails.order_id = order_id
                 orderDetails.products = productsArr
                 orderDetails.date = date
             }
-            vendorOrders.push(orderDetails)
+            if (!orderDetails.product) {
+                continue
+            } else {
+                vendorOrders.push(orderDetails)
+            }
         }
         if (vendorOrders.length == 0) {
             return res.json({success: false, message: `You have no order for your products`})
