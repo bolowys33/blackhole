@@ -251,21 +251,20 @@ async function getAllOrdersForVendor(req, res) {
 
         const vendorOrders = []
         for (const order of orders) {
-            const orderDetails = {}
             const order_id = order._id
             const date = order.order_date
             const productsArr = []
-
+            
             for (const product of order.products) {
                 const productDetails = await ProductModel.findById(product.product_id)
                 
                 if (productDetails.user_id != id) {
-                   continue
+                    continue
                 }
-
+                
                 const newDetails = {product_name: productDetails.name, quantity: product.quantity, price: product.price, category_id: productDetails.category_id, image: productDetails.images[0]}
                 productsArr.push(newDetails)
-                // const orderDetails = {order_id, products: productsArr, date}
+                const orderDetails = {}
                 orderDetails.order_id = order_id
                 orderDetails.products = productsArr
                 orderDetails.date = date
