@@ -269,7 +269,7 @@ async function getAllOrdersForVendor(req, res) {
                 orderDetails.products = productsArr
                 orderDetails.date = date
             }
-            if (!orderDetails.product) {
+            if (!orderDetails.products) {
                 continue
             } else {
                 vendorOrders.push(orderDetails)
